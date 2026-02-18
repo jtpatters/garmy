@@ -208,6 +208,8 @@ class SyncManager:
                 self.db.store_activity(user_id, activity_data)
                 stats['completed'] += 1
 
+            # Update sync status for the entire ACTIVITIES metric for this date
+            self.db.update_sync_status(user_id, sync_date, MetricType.ACTIVITIES, 'completed')
             self.progress.task_complete("activities", sync_date)
 
         except Exception as e:
